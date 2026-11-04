@@ -37,10 +37,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dist/
+          git add -A dist/
           if git diff --cached --quiet; then
             echo "No generated changes; nothing to commit."
             exit 0
           fi
           git commit -m "chore: refresh generated filter subscriptions [skip ci]"
-          git push origin main
+          for attempt in 1 2 3; do
+            if git push origin main; then
+              echo "Published generated filters."
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "Push attempt $attempt failed; fetching main and retrying."
+              sleep "$((attempt * 10))"
+              git fetch origin main
+              git rebase origin/main
+            fi
+          done
+          echo "Unable to push generated filters after 3 attempts."
+          exit 1

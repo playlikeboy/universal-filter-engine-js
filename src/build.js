@@ -1,4 +1,4 @@
-import { readFile, mkdir, writeFile } from "node:fs/promises";
+import { readFile, mkdir, writeFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -40,6 +40,10 @@ async function fetchText(source, config) {
 
       if (!response.ok) {
         throw new Error("HTTP " + response.status + " from " + source.url);
+      }
+
+      if (!response.url.startsWith("https://")) {
+        throw new Error("Source redirected to a non-HTTPS URL");
       }
 
       const declaredLength = Number(response.headers.get("content-length") ?? 0);
@@ -97,10 +101,19 @@ function json(value) {
   return JSON.stringify(value, null, 2) + "\n";
 }
 
-async function writeOutput(relativePath, content) {
+async function writeOutput(relativePath, content, maxOutputBytes) {
+  const bytes = Buffer.byteLength(content, "utf8");
+  const limit = maxOutputBytes ?? 80 * 1024 * 1024;
+  if (bytes > limit) {
+    throw new Error(
+      relativePath + " is " + bytes + " bytes; configured output limit is " + limit
+    );
+  }
+
   const filePath = path.join(DIST, relativePath);
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, content, "utf8");
+  return bytes;
 }
 
 async function main() {
@@ -272,23 +285,45 @@ async function main() {
     ""
   ].join("\n");
 
-  await writeOutput("universal.txt", browserHeader + browserRules.join("\n") + "\n");
-  await writeOutput("dns/domains.txt", dnsDomains.join("\n") + "\n");
-  await writeOutput(
+  const outputSizes = [];
+  outputSizes.push([
+    "universal.txt",
+    await writeOutput("universal.txt", browserHeader + browserRules.join("\n") + "\n", config.maxOutputBytes)
+  ]);
+  outputSizes.push([
+    "dns/domains.txt",
+    await writeOutput("dns/domains.txt", dnsDomains.join("\n") + "\n", config.maxOutputBytes)
+  ]);
+  outputSizes.push([
     "dns/hosts.txt",
-    hostsHeader + dnsDomains.map((domain) => "0.0.0.0 " + domain).join("\n") + "\n"
-  );
-  await writeOutput("changes/added-rules.txt", addedRules.join("\n") + (addedRules.length ? "\n" : ""));
-  await writeOutput("changes/removed-rules.txt", removedRules.join("\n") + (removedRules.length ? "\n" : ""));
-  await writeOutput("changes/added-domains.txt", addedDomains.join("\n") + (addedDomains.length ? "\n" : ""));
-  await writeOutput("changes/removed-domains.txt", removedDomains.join("\n") + (removedDomains.length ? "\n" : ""));
-  await writeOutput("api/v1/manifest.json", json(manifest));
-  await writeOutput("api/v1/sources.json", json({ schemaVersion: 1, sources: sourceRecords }));
-  await writeOutput("api/v1/changes.json", json(changes));
+    await writeOutput(
+      "dns/hosts.txt",
+      hostsHeader + dnsDomains.map((domain) => "0.0.0.0 " + domain).join("\n") + "\n",
+      config.maxOutputBytes
+    )
+  ]);
+  outputSizes.push([
+    "api/v1/manifest.json",
+    await writeOutput("api/v1/manifest.json", json(manifest), config.maxOutputBytes)
+  ]);
+  outputSizes.push([
+    "api/v1/sources.json",
+    await writeOutput("api/v1/sources.json", json({ schemaVersion: 1, sources: sourceRecords }), config.maxOutputBytes)
+  ]);
+  outputSizes.push([
+    "api/v1/changes.json",
+    await writeOutput("api/v1/changes.json", json(changes), config.maxOutputBytes)
+  ]);
+
+  console.log("Generated file sizes:");
+  for (const [name, bytes] of outputSizes) {
+    console.log("  " + name + ": " + (bytes / (1024 * 1024)).toFixed(2) + " MiB");
+  }
 
   console.log(
     "Build complete: " + browserRules.length + " browser rules; " +
-    dnsDomains.length + " DNS domains; " + addedRules.length + " added rules."
+    dnsDomains.length + " DNS domains; " + addedRules.length + " added rules; " +
+    addedDomains.length + " added domains."
   );
 }
 
