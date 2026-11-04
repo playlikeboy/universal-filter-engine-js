@@ -1,5 +1,6 @@
-import { readFile, mkdir, writeFile, stat } from "node:fs/promises";
+import { readFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import https from "node:https";
 import { fileURLToPath } from "node:url";
 import {
   parseSourceText,
@@ -21,49 +22,104 @@ async function readOptional(filePath) {
   }
 }
 
-async function fetchText(source, config) {
-  if (!source.url.startsWith("https://")) {
-    throw new Error("Only HTTPS source URLs are allowed");
-  }
+function requestText(url, source, config, redirects = 0) {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = new URL(url);
+    if (parsedUrl.protocol !== "https:") {
+      reject(new Error("Only HTTPS source URLs and redirects are allowed"));
+      return;
+    }
+    if (redirects > 5) {
+      reject(new Error("Too many redirects from " + source.url));
+      return;
+    }
 
+    const request = https.get(parsedUrl, {
+      headers: {
+        "User-Agent": USER_AGENT,
+        "Accept": "text/plain, */*"
+      },
+      timeout: config.timeoutMs ?? 30000
+    }, (response) => {
+      const status = response.statusCode ?? 0;
+
+      if ([301, 302, 303, 307, 308].includes(status)) {
+        const location = response.headers.location;
+        response.resume();
+        if (!location) {
+          reject(new Error("Redirect without a Location header from " + source.url));
+          return;
+        }
+
+        let nextUrl;
+        try {
+          nextUrl = new URL(location, parsedUrl).toString();
+        } catch {
+          reject(new Error("Invalid redirect URL from " + source.url));
+          return;
+        }
+
+        requestText(nextUrl, source, config, redirects + 1).then(resolve, reject);
+        return;
+      }
+
+      if (status !== 200) {
+        response.resume();
+        reject(new Error("HTTP " + status + " from " + source.url));
+        return;
+      }
+
+      const limit = config.maxBytesPerSource ?? 25000000;
+      const declaredLength = Number(response.headers["content-length"] ?? 0);
+      if (declaredLength > limit) {
+        response.destroy();
+        reject(new Error("Source exceeds configured size limit"));
+        return;
+      }
+
+      const chunks = [];
+      let bytes = 0;
+
+      response.on("data", (chunk) => {
+        bytes += chunk.length;
+        if (bytes > limit) {
+          response.destroy(new Error("Source exceeds configured size limit"));
+          return;
+        }
+        chunks.push(chunk);
+      });
+
+      response.on("end", () => {
+        const body = Buffer.concat(chunks).toString("utf8");
+        if (body.trim().length === 0) {
+          reject(new Error("Source returned an empty response"));
+          return;
+        }
+        resolve(body);
+      });
+
+      response.on("error", reject);
+    });
+
+    request.on("timeout", () => {
+      request.destroy(new Error("Request timed out after " + (config.timeoutMs ?? 30000) + "ms"));
+    });
+    request.on("error", reject);
+  });
+}
+
+async function fetchText(source, config) {
   let lastError;
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      const response = await fetch(source.url, {
-        headers: {
-          "User-Agent": USER_AGENT,
-          "Accept": "text/plain, */*"
-        },
-        signal: AbortSignal.timeout(config.timeoutMs ?? 30000),
-        redirect: "follow"
-      });
-
-      if (!response.ok) {
-        throw new Error("HTTP " + response.status + " from " + source.url);
-      }
-
-      if (!response.url.startsWith("https://")) {
-        throw new Error("Source redirected to a non-HTTPS URL");
-      }
-
-      const declaredLength = Number(response.headers.get("content-length") ?? 0);
-      if (declaredLength > config.maxBytesPerSource) {
-        throw new Error("Source exceeds configured size limit");
-      }
-
-      const body = await response.text();
-      if (Buffer.byteLength(body, "utf8") > config.maxBytesPerSource) {
-        throw new Error("Source exceeds configured size limit after download");
-      }
-      if (body.trim().length === 0) {
-        throw new Error("Source returned an empty response");
-      }
-
-      return body;
+      return await requestText(source.url, source, config);
     } catch (error) {
       lastError = error;
+      console.error(
+        "Fetch retry " + (attempt + 1) + "/3 for " + source.id + ": " + error.message
+      );
       if (attempt < 2) {
-        await new Promise((resolve) => setTimeout(resolve, 500 * (2 ** attempt)));
+        await new Promise((resolve) => setTimeout(resolve, 750 * (2 ** attempt)));
       }
     }
   }
@@ -124,7 +180,7 @@ async function main() {
   console.log("Fetching " + sources.length + " enabled filter sources...");
   const results = await mapLimit(
     sources,
-    config.fetchConcurrency ?? 4,
+    config.fetchConcurrency ?? 2,
     async (source) => {
       try {
         const body = await fetchText(source, config);

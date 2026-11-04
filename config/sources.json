@@ -1,9 +1,10 @@
 {
   "schemaVersion": 1,
   "minSuccessfulSources": 5,
-  "fetchConcurrency": 4,
+  "fetchConcurrency": 2,
   "timeoutMs": 30000,
   "maxBytesPerSource": 25000000,
+  "maxOutputBytes": 83886080,
   "sources": [
     {
       "id": "easylist",
