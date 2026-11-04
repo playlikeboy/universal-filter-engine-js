@@ -1,0 +1,14 @@
+{
+  "name": "universal-filter-engine",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Universal filter-list aggregation and compilation for browser and DNS blockers",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node src/build.js",
+    "test": "node --test",
+    "check": "node --check src/engine.js && node --check src/build.js"
+  },
+  "license": "MIT"
+}

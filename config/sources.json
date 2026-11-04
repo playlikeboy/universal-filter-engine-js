@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "minSuccessfulSources": 5,
+  "fetchConcurrency": 4,
+  "timeoutMs": 30000,
+  "maxBytesPerSource": 25000000,
+  "sources": [
+    {
+      "id": "easylist",
+      "name": "EasyList",
+      "url": "https://easylist.to/easylist/easylist.txt",
+      "format": "abp",
+      "category": "ads",
+      "enabled": true,
+      "required": true,
+      "license": "GPL-3.0 OR CC-BY-SA-3.0",
+      "licenseUrl": "https://easylist.to/pages/policy.html"
+    },
+    {
+      "id": "easyprivacy",
+      "name": "EasyPrivacy",
+      "url": "https://easylist.to/easylist/easyprivacy.txt",
+      "format": "abp",
+      "category": "tracking",
+      "enabled": true,
+      "required": true,
+      "license": "GPL-3.0 OR CC-BY-SA-3.0",
+      "licenseUrl": "https://easylist.to/pages/policy.html"
+    },
+    {
+      "id": "ublock-filters",
+      "name": "uBlock filters — Ads",
+      "url": "https://ublockorigin.github.io/uAssets/filters/filters.txt",
+      "format": "abp",
+      "category": "ads",
+      "enabled": true,
+      "required": true,
+      "license": "GPL-3.0",
+      "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE"
+    },
+    {
+      "id": "ublock-privacy",
+      "name": "uBlock filters — Privacy",
+      "url": "https://ublockorigin.github.io/uAssets/filters/privacy.txt",
+      "format": "abp",
+      "category": "tracking",
+      "enabled": true,
+      "required": false,
+      "license": "GPL-3.0",
+      "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE"
+    },
+    {
+      "id": "ublock-badware",
+      "name": "uBlock filters — Badware risks",
+      "url": "https://ublockorigin.github.io/uAssets/filters/badware.txt",
+      "format": "abp",
+      "category": "security",
+      "enabled": true,
+      "required": false,
+      "license": "GPL-3.0",
+      "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE"
+    },
+    {
+      "id": "adguard-base",
+      "name": "AdGuard Base filter",
+      "url": "https://filters.adtidy.org/extension/ublock/filters/2.txt",
+      "format": "abp",
+      "category": "ads",
+      "enabled": true,
+      "required": false,
+      "license": "GPL-3.0",
+      "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters"
+    },
+    {
+      "id": "adguard-tracking",
+      "name": "AdGuard Tracking Protection",
+      "url": "https://filters.adtidy.org/extension/ublock/filters/3.txt",
+      "format": "abp",
+      "category": "tracking",
+      "enabled": true,
+      "required": false,
+      "license": "GPL-3.0",
+      "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters"
+    },
+    {
+      "id": "1hosts-lite",
+      "name": "1Hosts Lite — AdBlock format",
+      "url": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt",
+      "format": "abp",
+      "category": "ads-security",
+      "enabled": true,
+      "required": false,
+      "license": "See upstream LICENSE; verify before redistribution",
+      "licenseUrl": "https://github.com/badmojr/1Hosts/blob/master/LICENSE"
+    },
+    {
+      "id": "stevenblack-hosts",
+      "name": "StevenBlack Unified hosts",
+      "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+      "format": "hosts",
+      "category": "ads-security",
+      "enabled": true,
+      "required": false,
+      "license": "Composite upstream sources; see upstream source/license table",
+      "licenseUrl": "https://github.com/StevenBlack/hosts#sources-of-hosts-data-unified-in-this-variant"
+    },
+    {
+      "id": "indianlist",
+      "name": "IndianList",
+      "url": "https://easylist-downloads.adblockplus.org/indianlist.txt",
+      "format": "abp",
+      "category": "regional",
+      "enabled": false,
+      "required": false,
+      "license": "Review redistribution terms before enabling",
+      "licenseUrl": "https://github.com/mediumkreation/IndianList"
+    }
+  ]
+}
