@@ -12,9 +12,9 @@
   "totals": {
     "browserRules": 717390,
     "dnsDomains": 323095,
-    "addedRules": 717390,
+    "addedRules": 0,
     "removedRules": 0,
-    "addedDomains": 323095,
+    "addedDomains": 0,
     "removedDomains": 0,
     "ruleTypes": {
       "network": 646564,
