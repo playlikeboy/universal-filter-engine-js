@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "name": "Universal Filter Engine",
+  "version": "0.1.0",
+  "status": "ok",
+  "sourceSummary": {
+    "configured": 10,
+    "enabled": 9,
+    "successful": 9,
+    "failed": 0
+  },
+  "totals": {
+    "browserRules": 717390,
+    "dnsDomains": 323095,
+    "addedRules": 717390,
+    "removedRules": 0,
+    "addedDomains": 323095,
+    "removedDomains": 0,
+    "ruleTypes": {
+      "network": 646564,
+      "cosmetic": 61930,
+      "exception": 8362,
+      "other": 534
+    }
+  },
+  "subscriptions": {
+    "browser": {
+      "format": "ABP-family",
+      "url": "https://cdn.jsdelivr.net/gh/playlikeboy/universal-filter-engine-js@main/dist/universal.txt"
+    },
+    "dnsDomains": {
+      "format": "domain-per-line",
+      "url": "https://cdn.jsdelivr.net/gh/playlikeboy/universal-filter-engine-js@main/dist/dns/domains.txt"
+    },
+    "hosts": {
+      "format": "hosts",
+      "url": "https://cdn.jsdelivr.net/gh/playlikeboy/universal-filter-engine-js@main/dist/dns/hosts.txt"
+    }
+  }
+}
