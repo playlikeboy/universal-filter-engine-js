@@ -16,11 +16,12 @@ test("normalizes BOM, CRLF and outer whitespace", () => {
 
 test("accepts regular hostnames and rejects unsafe or non-host values", () => {
   assert.equal(isValidDomain("ads.example.com"), true);
-  assert.equal(isValidDomain("xn--bcher-kva.example"), true);
+  assert.equal(isValidDomain("xn--bcher-kva.com"), true);
   assert.equal(isValidDomain("localhost"), false);
   assert.equal(isValidDomain("127.0.0.1"), false);
   assert.equal(isValidDomain("*.example.com"), false);
   assert.equal(isValidDomain("example.com/path"), false);
+  assert.equal(isValidDomain("ads.example"), false);
 });
 
 test("parses hosts records and ignores local aliases", () => {

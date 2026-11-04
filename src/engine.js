@@ -1,4 +1,7 @@
 const HOSTS_IPV4 = new Set(["0.0.0.0", "127.0.0.1"]);
+const RESERVED_NAMES = new Set([
+  "localhost", "local", "localdomain", "invalid", "test", "example"
+]);
 const DOMAIN_BLOCK_RE = /^\|\|([a-z0-9.-]+)\^$/i;
 const LABEL_RE = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
 
@@ -38,10 +41,9 @@ export function isValidDomain(value) {
     return false;
   }
 
-  const localNames = new Set([
-    "localhost", "local", "localdomain", "invalid", "test", "example"
-  ]);
-  if (localNames.has(domain) || localNames.has(tld)) return false;
+  if (RESERVED_NAMES.has(domain) || RESERVED_NAMES.has(tld)) {
+    return false;
+  }
 
   return true;
 }
@@ -56,6 +58,7 @@ function isCommentOrHeader(line) {
   if (line.startsWith("!") || line.startsWith("[") || line.startsWith(";")) {
     return true;
   }
+
   if (
     line.startsWith("#") &&
     !line.startsWith("##") &&
@@ -65,6 +68,7 @@ function isCommentOrHeader(line) {
   ) {
     return true;
   }
+
   return false;
 }
 
@@ -81,6 +85,7 @@ export function parseHostsLine(line) {
 export function extractExactDomainRule(line) {
   const match = line.match(DOMAIN_BLOCK_RE);
   if (!match) return null;
+
   const domain = match[1].toLowerCase().replace(/\.$/, "");
   return isValidDomain(domain) ? domain : null;
 }
@@ -152,6 +157,7 @@ export function mergeParsedSources(parsedSources) {
     for (const [rule, sourceIds] of parsed.rules) {
       for (const sourceId of sourceIds) addToMap(rules, rule, sourceId);
     }
+
     for (const [domain, sourceIds] of parsed.domains) {
       for (const sourceId of sourceIds) addToMap(domains, domain, sourceId);
     }
