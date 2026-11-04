@@ -7,8 +7,9 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "build": "node src/build.js",
+    "build:site": "node src/create-site.js",
     "test": "node --test",
-    "check": "node --check src/engine.js && node --check src/build.js"
+    "check": "node --check src/engine.js && node --check src/build.js && node --check src/create-site.js"
   },
   "license": "MIT"
 }

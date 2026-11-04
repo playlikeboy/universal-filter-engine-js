@@ -7,16 +7,21 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: update-filter-subscriptions
   cancel-in-progress: false
 
 jobs:
-  refresh:
-    name: Fetch, deduplicate and publish lists
+  refresh-and-deploy:
+    name: Fetch, deduplicate, publish and deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -33,6 +38,8 @@ jobs:
           npm test
       - name: Fetch sources and compile outputs
         run: npm run build
+      - name: Generate GitHub Pages site
+        run: npm run build:site
       - name: Commit changed generated files
         run: |
           git config user.name "github-actions[bot]"
@@ -40,20 +47,30 @@ jobs:
           git add -A dist/
           if git diff --cached --quiet; then
             echo "No generated changes; nothing to commit."
-            exit 0
+          else
+            git commit -m "chore: refresh generated filter subscriptions [skip ci]"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "Published generated filters."
+                break
+              fi
+              if [ "$attempt" -lt 3 ]; then
+                echo "Push attempt $attempt failed; fetching main and retrying."
+                sleep "$((attempt * 10))"
+                git fetch origin main
+                git rebase origin/main
+              else
+                echo "Unable to push generated filters after 3 attempts."
+                exit 1
+              fi
+            done
           fi
-          git commit -m "chore: refresh generated filter subscriptions [skip ci]"
-          for attempt in 1 2 3; do
-            if git push origin main; then
-              echo "Published generated filters."
-              exit 0
-            fi
-            if [ "$attempt" -lt 3 ]; then
-              echo "Push attempt $attempt failed; fetching main and retrying."
-              sleep "$((attempt * 10))"
-              git fetch origin main
-              git rebase origin/main
-            fi
-          done
-          echo "Unable to push generated filters after 3 attempts."
-          exit 1
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
