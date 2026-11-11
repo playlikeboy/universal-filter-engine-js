@@ -10,17 +10,17 @@
     "failed": 0
   },
   "totals": {
-    "browserRules": 749014,
-    "dnsDomains": 324171,
-    "addedRules": 434,
-    "removedRules": 37,
-    "addedDomains": 374,
+    "browserRules": 750788,
+    "dnsDomains": 325965,
+    "addedRules": 1848,
+    "removedRules": 74,
+    "addedDomains": 1794,
     "removedDomains": 0,
     "ruleTypes": {
-      "network": 678098,
-      "cosmetic": 62013,
-      "exception": 8366,
-      "other": 537
+      "network": 679900,
+      "cosmetic": 62000,
+      "exception": 8355,
+      "other": 533
     }
   },
   "subscriptions": {
