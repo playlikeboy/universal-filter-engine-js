@@ -13,9 +13,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 76784,
-      "parsedDomains": 42788,
-      "linesSeen": 77072,
+      "parsedRules": 77156,
+      "parsedDomains": 43180,
+      "linesSeen": 77445,
       "rejectedLines": 1
     },
     {
@@ -30,9 +30,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 56601,
-      "parsedDomains": 43381,
-      "linesSeen": 57380,
+      "parsedRules": 56617,
+      "parsedDomains": 43399,
+      "linesSeen": 57394,
       "rejectedLines": 1
     },
     {
@@ -64,9 +64,9 @@
       "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
       "status": "ok",
       "error": null,
-      "parsedRules": 1799,
-      "parsedDomains": 93,
-      "linesSeen": 3426,
+      "parsedRules": 1800,
+      "parsedDomains": 94,
+      "linesSeen": 3429,
       "rejectedLines": 0
     },
     {
@@ -81,9 +81,9 @@
       "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
       "status": "ok",
       "error": null,
-      "parsedRules": 4875,
+      "parsedRules": 4878,
       "parsedDomains": 58,
-      "linesSeen": 7053,
+      "linesSeen": 7058,
       "rejectedLines": 0
     },
     {
@@ -98,9 +98,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 131074,
-      "parsedDomains": 54792,
-      "linesSeen": 147948,
+      "parsedRules": 131468,
+      "parsedDomains": 55196,
+      "linesSeen": 148349,
       "rejectedLines": 42
     },
     {
@@ -115,9 +115,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 439230,
-      "parsedDomains": 117785,
-      "linesSeen": 443064,
+      "parsedRules": 439239,
+      "parsedDomains": 117793,
+      "linesSeen": 443074,
       "rejectedLines": 1
     },
     {
