@@ -13,9 +13,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 77546,
-      "parsedDomains": 43566,
-      "linesSeen": 77835,
+      "parsedRules": 77911,
+      "parsedDomains": 43917,
+      "linesSeen": 78200,
       "rejectedLines": 1
     },
     {
@@ -30,9 +30,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 56624,
-      "parsedDomains": 43406,
-      "linesSeen": 57401,
+      "parsedRules": 56647,
+      "parsedDomains": 43424,
+      "linesSeen": 57424,
       "rejectedLines": 1
     },
     {
@@ -64,9 +64,9 @@
       "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
       "status": "ok",
       "error": null,
-      "parsedRules": 1800,
+      "parsedRules": 1802,
       "parsedDomains": 94,
-      "linesSeen": 3429,
+      "linesSeen": 3431,
       "rejectedLines": 0
     },
     {
@@ -81,9 +81,9 @@
       "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
       "status": "ok",
       "error": null,
-      "parsedRules": 4881,
+      "parsedRules": 4882,
       "parsedDomains": 58,
-      "linesSeen": 7063,
+      "linesSeen": 7071,
       "rejectedLines": 0
     },
     {
@@ -98,9 +98,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 131847,
-      "parsedDomains": 55570,
-      "linesSeen": 148730,
+      "parsedRules": 132252,
+      "parsedDomains": 55951,
+      "linesSeen": 149141,
       "rejectedLines": 42
     },
     {
@@ -115,9 +115,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 439247,
-      "parsedDomains": 117800,
-      "linesSeen": 443082,
+      "parsedRules": 439254,
+      "parsedDomains": 117805,
+      "linesSeen": 443089,
       "rejectedLines": 1
     },
     {
@@ -150,8 +150,8 @@
       "status": "ok",
       "error": null,
       "parsedRules": 0,
-      "parsedDomains": 78216,
-      "linesSeen": 85034,
+      "parsedDomains": 77310,
+      "linesSeen": 84131,
       "rejectedLines": 21
     }
   ]
