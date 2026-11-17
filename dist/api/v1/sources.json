@@ -13,9 +13,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 76769,
-      "parsedDomains": 42778,
-      "linesSeen": 77059,
+      "parsedRules": 77164,
+      "parsedDomains": 43162,
+      "linesSeen": 77454,
       "rejectedLines": 1
     },
     {
@@ -30,9 +30,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 56671,
-      "parsedDomains": 43439,
-      "linesSeen": 57448,
+      "parsedRules": 56679,
+      "parsedDomains": 43445,
+      "linesSeen": 57456,
       "rejectedLines": 1
     },
     {
@@ -98,9 +98,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 131140,
-      "parsedDomains": 54803,
-      "linesSeen": 148032,
+      "parsedRules": 131550,
+      "parsedDomains": 55181,
+      "linesSeen": 148448,
       "rejectedLines": 42
     },
     {
@@ -115,9 +115,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 439279,
-      "parsedDomains": 117815,
-      "linesSeen": 443114,
+      "parsedRules": 439292,
+      "parsedDomains": 117823,
+      "linesSeen": 443128,
       "rejectedLines": 1
     },
     {
