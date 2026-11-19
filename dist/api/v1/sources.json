@@ -13,9 +13,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 77559,
-      "parsedDomains": 43531,
-      "linesSeen": 77849,
+      "parsedRules": 77916,
+      "parsedDomains": 43887,
+      "linesSeen": 78206,
       "rejectedLines": 1
     },
     {
@@ -30,9 +30,9 @@
       "licenseUrl": "https://easylist.to/pages/policy.html",
       "status": "ok",
       "error": null,
-      "parsedRules": 56720,
-      "parsedDomains": 43457,
-      "linesSeen": 57500,
+      "parsedRules": 56741,
+      "parsedDomains": 43469,
+      "linesSeen": 57521,
       "rejectedLines": 1
     },
     {
@@ -47,9 +47,9 @@
       "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
       "status": "ok",
       "error": null,
-      "parsedRules": 6052,
+      "parsedRules": 6050,
       "parsedDomains": 40,
-      "linesSeen": 10796,
+      "linesSeen": 10792,
       "rejectedLines": 1
     },
     {
@@ -64,9 +64,9 @@
       "licenseUrl": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
       "status": "ok",
       "error": null,
-      "parsedRules": 1806,
+      "parsedRules": 1807,
       "parsedDomains": 94,
-      "linesSeen": 3441,
+      "linesSeen": 3446,
       "rejectedLines": 0
     },
     {
@@ -98,9 +98,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 131967,
-      "parsedDomains": 55541,
-      "linesSeen": 148870,
+      "parsedRules": 132347,
+      "parsedDomains": 55903,
+      "linesSeen": 149250,
       "rejectedLines": 42
     },
     {
@@ -115,9 +115,9 @@
       "licenseUrl": "https://github.com/AdguardTeam/AdGuardFilters",
       "status": "ok",
       "error": null,
-      "parsedRules": 439315,
-      "parsedDomains": 117832,
-      "linesSeen": 443149,
+      "parsedRules": 439326,
+      "parsedDomains": 117841,
+      "linesSeen": 443161,
       "rejectedLines": 1
     },
     {
