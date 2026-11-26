@@ -10,15 +10,15 @@
     "failed": 0
   },
   "totals": {
-    "browserRules": 784851,
-    "dnsDomains": 336045,
-    "addedRules": 395,
-    "removedRules": 15,
-    "addedDomains": 351,
-    "removedDomains": 1,
+    "browserRules": 785273,
+    "dnsDomains": 336408,
+    "addedRules": 446,
+    "removedRules": 24,
+    "addedDomains": 365,
+    "removedDomains": 2,
     "ruleTypes": {
-      "network": 713696,
-      "cosmetic": 62263,
+      "network": 714097,
+      "cosmetic": 62284,
       "exception": 8359,
       "other": 533
     }
